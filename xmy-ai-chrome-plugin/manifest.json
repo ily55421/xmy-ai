@@ -1,0 +1,32 @@
+{
+  "name": "Xmy Ai Helper",
+  "description" : "A helper for xmy-ai.cn",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "main.html",
+    "default_icon": "logo.png"
+  },
+  "content_scripts": [{
+    "matches": ["http://localhost:5173/*", "https://xmy-ai.cn/*", "https://wode.xmy-ai.cn/*"],
+    "js": ["scripts/xmy-ai-cp-cs_forward.js"],
+    "run_at": "document_start"
+  }, {
+    "matches": ["https://chat.deepseek.com/*", "https://www.kimi.com/*", "https://copilot.microsoft.com/*", "https://chat.sensetime.com/*", "https://agent.minimaxi.com/*", "https://chat.z.ai/*"],
+    "js": ["scripts/xmy-ai-cp-cs_storage.js"],
+    "run_at": "document_start"
+  }],
+  "background": {
+    "service_worker": "scripts/xmy-ai-cp_background.js"
+  },
+  "icons": {
+    "128": "logo.png"
+  },
+  "permissions": [
+    "cookies", "scripting", "webNavigation", "declarativeNetRequest", "storage", "tabs"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ]
+}
