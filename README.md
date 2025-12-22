@@ -44,23 +44,6 @@
     setValue(el, msg);
     emitEnter(el);
   },
-  "deep": async function(enable) {
-    const el = await findEl("div[data-log-name=tool_bar]", 5, (el2) => {
-      const attr = el2.getAttribute("data-log-params");
-      if (typeof attr === "string" && attr.includes("deepThink")) {
-        return true;
-      }
-      return false;
-    });
-    const con = el.className.includes("selected");
-    if (con && !enable) {
-      el.querySelector(".flex .anticon")?.click();
-      await delay(100);
-    } else if (!con && enable) {
-      el.click();
-      await delay(100);
-    }
-  }
 }
 ```
 
