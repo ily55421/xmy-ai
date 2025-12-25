@@ -1,4 +1,3 @@
-/* @vite-ignore */
 import { loadState, saveState } from '@/utils/storage-persistor'
 import { unwrap, type CheckResult } from './types'
 import { confirmError } from '@/utils/error'
