@@ -8,7 +8,7 @@
     "default_icon": "logo.png"
   },
   "content_scripts": [{
-    "matches": ["http://localhost:5173/*", "https://xmy-ai.cn/*", "https://wode.xmy-ai.cn/*"],
+    "matches": ["http://localhost:5173/*", "https://xmy-ai.cn/*", "https://wode.xmy-ai.cn/*", "https://lambs-ai.com/*", "https://my.lambs-ai.com/*"],
     "js": ["scripts/xmy-ai-cp-cs_forward.js"],
     "run_at": "document_start"
   }, {

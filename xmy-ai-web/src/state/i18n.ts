@@ -72,8 +72,8 @@ async function loadAndSetLocale(locale: string) {
 
 watch(
   ini_ui_language,
-  (lang) => {
-    loadAndSetLocale(lang)
+  async (lang) => {
+    await loadAndSetLocale(lang)
     const title = i18n.global.t('header.title')
     localStorage.setItem('LbTitle', title)
     document.title = title

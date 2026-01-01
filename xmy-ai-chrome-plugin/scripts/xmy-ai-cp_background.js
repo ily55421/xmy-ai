@@ -2,6 +2,8 @@ const sites = [
   "http://localhost:5173",
   "https://xmy-ai.cn",
   "https://wode.xmy-ai.cn/",
+  "https://lambs-ai.com",
+  "https://my.lambs-ai.com"
 ];
 
 console.log("background script is running: " + new Date());

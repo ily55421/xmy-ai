@@ -3,7 +3,7 @@
 English | 简体中文(README.md)
 
 The Lambs AI Assistant is a pure front-end webpage that aggregates web portals from various AI websites, allowing users to simultaneously ask questions to multiple AI agents.  
-This is the official website of Lambs AI Assistant[https://xmy-ai.cn]
+This is the official website of Lambs AI Assistant[https://lambs-ai.com]
 
 ![Schematic diagram of Lambs AI assistant](./xmy-ai-web/src/imgs/s_tour_en_4.jpg)
 
@@ -13,7 +13,7 @@ Before using the Lambs AI assistant, you need to install a Google Chrome or Edge
 - Open the Chrome extension management interface (Settings - Extensions - Manage Extensions)
 - Enable developer mode, as shown below![Schematic diagram of enabling developer mode](./xmy-ai-web/src/imgs/tour_1.jpg)
 - Click to load the unpacked extension, and select the unzipped folder, as shown in the above figure
-- Open or refresh the Lambs AI assistant[https://xmy-ai.cn]
+- Open or refresh the Lambs AI assistant[https://lambs-ai.com]
 
 Note: The interface of the Lambs AI Assistant does not allow login or logout actions. If you need to log in or log out, please open a separate interface to do so. The assistant will automatically synchronize account information (follow the prompts within the assistant if necessary).
 
