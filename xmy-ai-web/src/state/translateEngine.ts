@@ -4,6 +4,7 @@ import { unwrap, type CheckResult } from './types'
 import { aios, delay } from './aios'
 import { tipError } from '@/utils/error'
 import { allowTransIframeCsp, type AllowIframeConfig } from '@/action/message'
+import { i18n } from './i18n'
 
 const TranslateEngineStorageKey = 'lambs_translate'
 
@@ -41,7 +42,7 @@ init()
 export async function switchTranslateEngine(engine: string) {
   const url = engine === BaiduTrans ? BaiduTransUrl : aios[engine]?.url
   if (!url) {
-    throw tipError(`当前翻译引擎${engine}不受支持`)
+    throw tipError(i18n.global.t('messages.translate-engine-not-support', { engine }))
   }
   await csp(url)
   translate_setting.engine = engine
@@ -55,7 +56,7 @@ function typeCheck(data: TranslateSetting | null): CheckResult<TranslateSetting 
   }
   if (!data.engine) {
     return {
-      error: '属性`ini.translate.engine`必须存在',
+      error: i18n.global.t('typecheck.translate-engine'),
     }
   }
   return {

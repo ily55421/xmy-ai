@@ -15,6 +15,7 @@ import LbMoreAiModal from './LbMoreAiModal.vue'
 import { confirmError } from '@/utils/error'
 import { log } from '@/state/log'
 import { useI18n } from 'vue-i18n'
+import { isCn } from '@/state/i18n'
 
 const aiIndex = ref(-1)
 const aiKey = ref('')
@@ -110,11 +111,11 @@ function onMoreClick(i: number, key: string) {
         @mouseleave="mobileMode ? null : (hover[i] = false)"
         @click.capture="mobileMode ? (hover[i] = !hover[i]) : null"
       >
-        <switcher-current>{{ page.name }}</switcher-current>
+        <switcher-current>{{ page.fromChina && isCn ? page.name : page.key }}</switcher-current>
         <switcher-options>
           <template v-for="(aio, key) in aios" :key="key">
             <switcher-option v-if="key !== page.key" @click="switchAiPage(i, key)">
-              {{ aio.name }}
+              {{ aio.fromChina && isCn ? aio.name : aio.key }}
             </switcher-option>
           </template>
           <switcher-option key="more" @click="onMoreClick(i, page.key)">
@@ -137,7 +138,7 @@ function onMoreClick(i: number, key: string) {
         <ai-button
           :tooltip="t('settingText')"
           position="left"
-          @click="onSettingClick(page.key, page.name)"
+          @click="onSettingClick(page.key, page.fromChina && isCn ? page.name : page.key)"
         >
           <cp-svg-icon name="setting" :size="19" />
         </ai-button>
@@ -293,6 +294,7 @@ ai-button:hover > svg-ico {
 }
 ai-switcher switcher-options {
   display: flex;
+  overflow-x: hidden;
   overflow-y: scroll;
   width: 0;
   height: 0;

@@ -1,4 +1,5 @@
 import { checkLogin, delay, emitEnter, findEl, sendMsg, setValue, type Aio } from './aios'
+import { i18n } from './i18n'
 
 export function moreAios(): Record<string, Aio> {
   return {
@@ -9,13 +10,6 @@ export function moreAios(): Record<string, Aio> {
       onlySplitViewMode: true,
       url: 'https://copilot.microsoft.com/',
       fromChina: false,
-      onLoad: function () {
-        checkLogin(
-          () => document.querySelector('button[title=登录]'),
-          'Copilot',
-          'font-size: 22px;color: green; font-weight: blod;',
-        )
-      },
       sendMsg: async (msg) => {
         const el = await findEl<HTMLTextAreaElement>('#userInput')
         setValue(el, msg)
@@ -37,7 +31,7 @@ export function moreAios(): Record<string, Aio> {
       key: 'felo',
       name: 'Felo',
       tested: 20251217,
-      tags: ['双免', '日本'],
+      tags: [i18n.global.t('FNL'), i18n.global.t('Japan')],
       url: 'https://felo.ai/search',
       fromChina: false,
       sendMsg: (msg) => sendMsg('textarea.w-full', msg),
@@ -54,7 +48,7 @@ export function moreAios(): Record<string, Aio> {
     kimi: {
       key: 'kimi',
       name: 'Kimi',
-      tags: ['国产', '免费'],
+      tags: [i18n.global.t('China'), 'Free'],
       tested: 20251217,
       url: 'https://www.kimi.com/',
       fromChina: true,
@@ -86,7 +80,7 @@ export function moreAios(): Record<string, Aio> {
     liner: {
       key: 'liner',
       name: 'Liner',
-      tags: ['双免'],
+      tags: [i18n.global.t('FNL')],
       cookies: ['*'],
       url: 'https://app.liner.com/',
       sendMsg: async function (msg) {
@@ -99,7 +93,7 @@ export function moreAios(): Record<string, Aio> {
     mistral: {
       key: 'mistral',
       name: 'Mistral',
-      tags: ['双免'],
+      tags: [i18n.global.t('FNL')],
       cookies: ['*'],
       fromChina: false,
       tested: 20251217,
@@ -109,7 +103,7 @@ export function moreAios(): Record<string, Aio> {
     perplexity: {
       key: 'perplexity',
       name: 'Perplexity',
-      tags: ['双免'],
+      tags: [i18n.global.t('FNL')],
       tested: 20251217,
       onlySplitViewMode: true,
       url: 'https://www.perplexity.ai/',
@@ -120,7 +114,7 @@ export function moreAios(): Record<string, Aio> {
       key: 'phind',
       name: 'Phind',
       cookies: ['*'],
-      tags: ['双免', '丰富视觉'],
+      tags: [i18n.global.t('FNL'), i18n.global.t('tags.rich-visuals')],
       tested: 20251217,
       url: 'https://www.phind.com/',
       sendMsg: (msg) => sendMsg('textarea', msg),
@@ -129,14 +123,14 @@ export function moreAios(): Record<string, Aio> {
       key: 'poe',
       name: 'Poe',
       tested: 20251217,
-      tags: ['有限免费', '多AI群聊'],
+      tags: [i18n.global.t('tags.limited-free'), i18n.global.t('tags.multi-ai')],
       url: 'https://poe.com/',
       sendMsg: (msg) => sendMsg('textarea', msg),
     },
     you: {
       key: 'you',
       name: 'You.com',
-      tags: ['双免'],
+      tags: [i18n.global.t('FNL')],
       cookies: ['*'],
       tested: 20251217,
       url: 'https://you.com/?chatMode=default',
@@ -146,7 +140,7 @@ export function moreAios(): Record<string, Aio> {
     zai: {
       key: 'zai',
       name: 'Zai',
-      tags: ['双免'],
+      tags: [i18n.global.t('FNL')],
       cookies: ['*'],
       storage: ['token'],
       fromChina: false,
@@ -161,7 +155,7 @@ export function moreAios(): Record<string, Aio> {
     YiYan: {
       key: 'YiYan',
       name: '文心一言',
-      tags: ['免费'],
+      tags: ['Free', i18n.global.t('China')],
       tested: 20251217,
       fromChina: true,
       url: 'https://yiyan.baidu.com/',
@@ -170,7 +164,7 @@ export function moreAios(): Record<string, Aio> {
     SenseChat: {
       key: 'SenseChat',
       name: '商量',
-      tags: ['免费'],
+      tags: ['Free', i18n.global.t('China')],
       storage: ['accessToken', 'refreshToken'],
       fromChina: true,
       tested: 20251217,
@@ -187,7 +181,7 @@ export function moreAios(): Record<string, Aio> {
     ZhiNao: {
       key: 'ZhiNao',
       name: '360智脑',
-      tags: ['免费'],
+      tags: ['Free', i18n.global.t('China')],
       tested: 20251217,
       fromChina: true,
       url: 'https://chat.360.com/',
@@ -196,7 +190,7 @@ export function moreAios(): Record<string, Aio> {
     NaMi: {
       key: 'NaMi',
       name: '纳米',
-      tags: ['免费'],
+      tags: ['Free', i18n.global.t('China')],
       tested: 20251217,
       url: 'https://bot.n.cn/',
       fromChina: true,
@@ -205,7 +199,7 @@ export function moreAios(): Record<string, Aio> {
     BaiChuan: {
       key: 'BaiChuan',
       name: '百小应',
-      tags: ['免费', '医疗'],
+      tags: ['Free', i18n.global.t('tags.medical'), i18n.global.t('China')],
       cookies: ['*'],
       tested: 20251217,
       fromChina: true,
@@ -215,7 +209,7 @@ export function moreAios(): Record<string, Aio> {
     HaiLuo: {
       key: 'HaiLuo',
       name: '海螺',
-      tags: ['免费'],
+      tags: ['Free', i18n.global.t('China')],
       onlySplitViewMode: true,
       tested: 20251217,
       fromChina: true,
@@ -225,7 +219,7 @@ export function moreAios(): Record<string, Aio> {
     TianGong: {
       key: 'TianGong',
       name: '天工',
-      tags: ['免费'],
+      tags: ['Free', i18n.global.t('China')],
       tested: 20251217,
       fromChina: true,
       url: 'https://www.tiangong.cn/',
@@ -234,7 +228,7 @@ export function moreAios(): Record<string, Aio> {
     YueWen: {
       key: 'YueWen',
       name: '阶跃',
-      tags: ['免费'],
+      tags: ['Free', i18n.global.t('China')],
       url: 'https://www.stepfun.com/',
       cookies: ['*'],
       fromChina: true,
@@ -251,7 +245,7 @@ export function moreAios(): Record<string, Aio> {
     MetaSo: {
       key: 'MetaSo',
       name: '秘塔',
-      tags: ['免费'],
+      tags: ['Free', i18n.global.t('China')],
       tested: 20251217,
       fromChina: true,
       url: 'https://metaso.cn/',
@@ -260,7 +254,7 @@ export function moreAios(): Record<string, Aio> {
     zhipu: {
       key: 'zhipu',
       name: '智谱清言',
-      tags: ['免费', '免登陆'],
+      tags: [i18n.global.t('FNL'), i18n.global.t('China')],
       tested: 20251217,
       url: 'https://chatglm.cn/',
       fromChina: true,

@@ -95,6 +95,8 @@ opt-box:hover ul {
   width: 98px;
   height: unset;
   max-height: 198px;
+  overflow-x: hidden;
+  overflow-y: auto;
   box-shadow: var(--box-shadow);
 }
 .dark opt-box:hover ul {

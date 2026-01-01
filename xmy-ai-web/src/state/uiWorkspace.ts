@@ -2,6 +2,7 @@ import { loadState, saveState } from '@/utils/storage-persistor'
 import { reactive, ref, watch } from 'vue'
 import { unwrap, type CheckResult } from './types'
 import { confirmError, tipError } from '@/utils/error'
+import { i18n } from './i18n'
 
 const StorageKey = 'lambs_ini_ui_workspace'
 
@@ -15,7 +16,7 @@ export const ini_ui_workspace: Workspace[] = reactive(
   unwrap(typeCheck(storage)) || [
     {
       key: 'default',
-      title: '默认',
+      title: 'Default',
       actived: true,
     },
   ],
@@ -27,7 +28,7 @@ watch(
   () => {
     const ls = ini_ui_workspace.find((it) => it.actived) || ini_ui_workspace[0]
     if (!ls) {
-      throw tipError('找不到actived的workspace')
+      throw tipError('Activated workspace was not found')
     }
     if (currentWorkspace.value != ls) {
       currentWorkspace.value = ls
@@ -52,31 +53,31 @@ function typeCheck(workspace: Workspace[] | null): CheckResult<Workspace[] | nul
     return { data: null }
   }
   if (!(workspace instanceof Array)) {
-    return { error: '属性`ini.ui.workspace`只能为数组' }
+    return { error: i18n.global.t('typecheck.ui-workspace') }
   }
   let actived = false
   const keys = new Set()
   for (const ls of workspace) {
     if (!ls.key) {
-      return { error: '属性`ini.ui.workspace.key`必填' }
+      return { error: i18n.global.t('typecheck.ui-workspace-key-required') }
     }
     if (!ls.title) {
-      return { error: '属性`ini.ui.workspace.title`必填' }
+      return { error: i18n.global.t('typecheck.ui-workspace-title') }
     }
     if (keys.has(ls.key)) {
-      return { error: '属性`ini.ui.workspace.key`不能重复' }
+      return { error: i18n.global.t('typecheck.ui-workspace-key-unique') }
     }
     keys.add(ls.key)
     if (ls.actived) {
       if (!actived) {
         actived = true
       } else {
-        return { error: '属性`ini.ui.workspace`只能有一个actived的项目' }
+        return { error: i18n.global.t('typecheck.ui-workspace-actived-unique') }
       }
     }
   }
   if (!actived) {
-    return { error: '属性`ini.ui.workspace`必须有一个actived的项目' }
+    return { error: i18n.global.t('typecheck.ui-workspace-actived-required') }
   }
   return {
     data: workspace,

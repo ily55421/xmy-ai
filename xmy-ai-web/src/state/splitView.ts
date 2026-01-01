@@ -3,6 +3,7 @@ import { reactive, watch } from 'vue'
 import { unwrap, type CheckResult } from './types'
 import { confirmError } from '@/utils/error'
 import { allowSplitViewCsp, refreshSplitView, type AllowIframeConfig } from '@/action/message'
+import { i18n } from './i18n'
 
 const SplitViewStorageKey = 'lambs_ini_split_view'
 
@@ -71,7 +72,7 @@ function typeCheck(data: SplitView | null): CheckResult<SplitView | null> {
   }
   if (typeof data.enabled !== 'boolean') {
     return {
-      error: '属性`ini.split_view.enabled`的值只能为布尔值',
+      error: i18n.global.t('typecheck.split_view-enabled'),
     }
   }
   return {

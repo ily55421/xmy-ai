@@ -9,8 +9,11 @@ import CpOptions, { type Option } from './CpOptions.vue'
 import { aios, useAio } from '@/state/aios'
 import { mobileMode } from '@/state/env'
 import { useI18n } from 'vue-i18n'
+import { isCn } from '@/state/i18n'
 
 const { t } = useI18n()
+
+const isEdge = navigator.userAgent.includes('Edg/')
 
 const settingModalVisible = ref(false)
 const aiOptions = ref<Option[]>([])
@@ -18,7 +21,7 @@ watch(
   aios,
   () => {
     const options = Object.values(aios).map((aio) => ({
-      label: aio.name,
+      label: aio.fromChina && isCn.value ? aio.name : aio.key,
       value: aio.key,
     }))
     options.push({
@@ -34,13 +37,17 @@ async function onSplitViewAiSelected(val: string) {
     const { moreAios } = await import('../state/aiosMore')
     aiOptions.value = aiOptions.value.filter((it) => it.value !== 'more')
     const moreOptions = Object.values(moreAios()).map((aio) => ({
-      label: aio.name,
+      label: aio.fromChina && isCn.value ? aio.name : aio.key,
       value: aio.key,
     }))
     aiOptions.value.push(...moreOptions)
   } else {
     useAio(val, (aio) => {
-      setSplitViewAi(val, aio?.name || 'unknown', aio?.url)
+      setSplitViewAi(
+        val,
+        (aio?.fromChina && isCn.value ? aio?.name : aio?.key) || 'unknown',
+        aio?.url,
+      )
     })
   }
 }
@@ -109,7 +116,7 @@ Object.assign(window, { onSettingClick })
         />
         <span v-if="ini_split_view.enabled">{{ t('header.sv-after-option') }}</span>
         <button @click="toggleSplitView" :class="{ actived: ini_split_view.enabled }">
-          {{ t('header.sv-split-view') }}
+          {{ isEdge ? t('header.sv-split-screen') : t('header.sv-split-view') }}
         </button>
         <span v-if="ini_split_view.enabled">{{ t('header.sv-after-sv') }}</span>
         <sup v-if="ini_split_view.enabled" @click="showSplitViewTour">?</sup>
@@ -314,7 +321,7 @@ header.left header-right {
   height: unset;
 }
 split-view {
-  width: 288px;
+  width: 296px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -336,7 +343,7 @@ split-view span {
   margin: 2px;
 }
 split-view button {
-  width: 68px;
+  width: 80px;
   padding: 2px 2px;
   border-radius: 4px;
 }

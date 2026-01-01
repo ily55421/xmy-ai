@@ -2,6 +2,7 @@ import { loadState, saveState } from '@/utils/storage-persistor'
 import { reactive } from 'vue'
 import { unwrap, type CheckResult } from './types'
 import { confirmError } from '@/utils/error'
+import { i18n } from './i18n'
 
 const UiHeaderStorageKey = 'lambs_ini_ui_header'
 
@@ -37,12 +38,12 @@ function typeCheck(header: IniUiHeader | null): CheckResult<IniUiHeader | null> 
   }
   if (!['top', 'left'].includes(header.position)) {
     return {
-      error: '属性`ini.ui.header.position`的值只能为`top`或者`left`',
+      error: i18n.global.t('typecheck.ui-header-position'),
     }
   }
   if (!['big', 'middle', 'small'].includes(header.size)) {
     return {
-      error: '属性`ini.ui.header.size`的值只能为`big`或者`middle`或者`small`',
+      error: i18n.global.t('typecheck.ui-header-size'),
     }
   }
   return {

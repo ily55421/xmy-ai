@@ -9,7 +9,7 @@ import CpAlert from './components/CpAlert.vue'
 import { mobileMode } from './state/env'
 import { initMobile } from './state/mobile'
 import LbMobileAiSelector from './components/LbMobileAiSelector.vue'
-import { ini_ui_language } from './state/i18n'
+import { isCn } from './state/i18n'
 
 if (mobileMode.value) {
   initMobile()
@@ -26,7 +26,7 @@ if (mobileMode.value) {
     <modal-wrapper id="modal-wrapper"></modal-wrapper>
     <CpMessage />
     <CpAlert />
-    <bei-an v-if="!mobileMode && ini_ui_language === 'zh-CN'">浙ICP备15038202号-3</bei-an>
+    <bei-an v-if="!mobileMode && isCn">浙ICP备15038202号-3</bei-an>
   </lb-theme>
   <LbTrans v-if="!mobileMode" />
 </template>

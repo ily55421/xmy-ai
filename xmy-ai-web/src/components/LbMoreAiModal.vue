@@ -7,6 +7,7 @@ import { info } from '@/utils/message'
 import { ini_split_view, setSplitViewAi } from '@/state/splitView'
 import { largeScreen, mobileMode } from '@/state/env'
 import { useI18n } from 'vue-i18n'
+import { isCn } from '@/state/i18n'
 
 const show = defineModel<boolean>()
 const props = defineProps<{
@@ -144,8 +145,12 @@ function enableInSplitView() {
     if (!aio) {
       throw confirmError(t('messages.unable-find-ai-save-first', { aiKey: currentConfigAi.value }))
     }
-    setSplitViewAi(aio?.key, aio?.name, aio?.url)
-    info(t('messages.split-view-enabled-successfully', { aiName: aio.name }))
+    setSplitViewAi(aio?.key, aio.fromChina && isCn.value ? aio?.name : aio?.key, aio?.url)
+    info(
+      t('messages.split-view-enabled-successfully', {
+        aiName: aio.fromChina && isCn.value ? aio.name : aio.key,
+      }),
+    )
   })
 }
 
@@ -204,7 +209,7 @@ function onCancel() {
                   :disabled="!mobileMode && ai.onlySplitViewMode"
                 />
               </td>
-              <td>{{ ai.name }}</td>
+              <td>{{ ai.fromChina && isCn ? ai.name : ai.key }}</td>
               <td v-if="largeScreen()">{{ ai.url }}</td>
               <td>
                 <ai-tag v-if="!mobileMode && ai.onlySplitViewMode" key="osvm">{{
@@ -214,9 +219,9 @@ function onCancel() {
                   v-for="tag in ai.tags"
                   :key="tag"
                   :tooltip="
-                    tag === t('free')
+                    tag === 'Free'
                       ? t('more-ai-modal.free-definition')
-                      : tag === t('more-ai-modal.FNL')
+                      : tag === t('FNL')
                         ? t('more-ai-modal.FNL-refers')
                         : ''
                   "

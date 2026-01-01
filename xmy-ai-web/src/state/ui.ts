@@ -3,6 +3,7 @@ import { computed, reactive, ref, watch } from 'vue'
 import { unwrap, type CheckResult } from './types'
 import { confirmError } from '@/utils/error'
 import { largeScreen } from './env'
+import { i18n } from './i18n'
 
 const UiStorageKey = 'lambs_ini_ui'
 
@@ -63,12 +64,12 @@ function typeCheck(data: IniUi | null): CheckResult<IniUi | null> {
   }
   if (!['auto', 'light', 'dark'].includes(data.theme)) {
     return {
-      error: '属性`ini.ui.theme`的值只能为`auto`, `light`或者`dark`',
+      error: i18n.global.t('typecheck.ui-theme'),
     }
   }
   if (!['large_screen', 'small_screen'].includes(data.layout)) {
     return {
-      error: '属性`ini.ui.layout`的值只能为`large_screen`或者`small_screen`',
+      error: i18n.global.t('typecheck.ui-layout'),
     }
   }
   return {

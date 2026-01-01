@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import CpModal from './CpModal.vue'
+import { isCn } from '@/state/i18n'
+import { useI18n } from 'vue-i18n'
 const show = ref(false)
 const emit = defineEmits(['hidden'])
+const { t } = useI18n()
 onMounted(() => {
   show.value = true
 })
@@ -19,37 +22,65 @@ function toggleFullscreen(e: PointerEvent) {
     }
   }
 }
+const isEdge = navigator.userAgent.includes('Edg/')
 </script>
 
 <template>
-  <CpModal v-model:show="show" title="拆分视图模式说明" @update:show="emit('hidden')">
+  <CpModal
+    v-model:show="show"
+    :title="isEdge ? t('sstour.title') : t('svtour.title')"
+    @update:show="emit('hidden')"
+  >
     <div>
-      <ol>
+      <ol v-if="isEdge">
         <li>
-          在小绵羊AI助手右上方选择一个AI在拆分视图中启用（例如：Copilot），如下图
-          <img src="../imgs/s_tour_1.png" @click="toggleFullscreen" />
-        </li>
-        <li>在新的标签页打开目标AI(建议点击Copilot对应的超链接打开，防止网址不匹配)</li>
-        <li>
-          在小绵羊AI助手所在标签页右键，选择向新的拆分视图中添加标签页，如下图
-          <img src="../imgs/s_tour_2.jpg" @click="toggleFullscreen" />
+          {{ t('sstour.step1') }}
+          <img v-if="isCn" src="../imgs/se_tour_1.jpg" @click="toggleFullscreen" />
+          <img v-else src="../imgs/se_tour_en_1.jpg" @click="toggleFullscreen" />
         </li>
         <li>
-          选择目标AI所在界面
-          <img src="../imgs/s_tour_3.jpg" @click="toggleFullscreen" />
+          {{ t('sstour.step2') }}
+          <img v-if="isCn" src="../imgs/se_tour_2.jpg" @click="toggleFullscreen" />
+          <img v-else src="../imgs/se_tour_en_2.jpg" @click="toggleFullscreen" />
         </li>
         <li>
-          之后，我们可以借助Chrome原生的功能随意调整拆分视图的宽度
-          <img src="../imgs/s_tour_4.jpg" @click="toggleFullscreen" />
+          {{ t('sstour.step3') }}
+          <img v-if="isCn" src="../imgs/se_tour_3.jpg" @click="toggleFullscreen" />
+          <img v-else src="../imgs/se_tour_en_3.jpg" @click="toggleFullscreen" />
         </li>
         <li>
-          在小绵羊AI助手中提问，会自动向拆分视图中的AI发起提问
-          <br />
-          <br />
-          <br />
-          <br />
+          {{ t('sstour.step4') }}
+        </li>
+        <li>
+          {{ t('sstour.step5') }}
+          <img v-if="isCn" src="../imgs/se_tour_4.jpg" @click="toggleFullscreen" />
+          <img v-else src="../imgs/se_tour_en_4.jpg" @click="toggleFullscreen" />
         </li>
       </ol>
+      <ol v-else>
+        <li>
+          {{ t('svtour.step1') }}
+          <img v-if="isCn" src="../imgs/s_tour_1.png" @click="toggleFullscreen" />
+          <img v-else src="../imgs/s_tour_en_1.jpg" @click="toggleFullscreen" />
+        </li>
+        <li>
+          {{ t('svtour.step2') }}
+          <img v-if="isCn" src="../imgs/s_tour_2.jpg" @click="toggleFullscreen" />
+          <img v-else src="../imgs/s_tour_en_2.jpg" @click="toggleFullscreen" />
+        </li>
+        <li>
+          {{ t('svtour.step3') }}
+          <img v-if="isCn" src="../imgs/s_tour_4.jpg" @click="toggleFullscreen" />
+          <img v-else src="../imgs/s_tour_en_4.jpg" @click="toggleFullscreen" />
+        </li>
+        <li>
+          {{ t('svtour.step4') }}
+        </li>
+      </ol>
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   </CpModal>
 </template>

@@ -2,6 +2,7 @@ import { loadState, saveState } from '@/utils/storage-persistor'
 import { unwrap, type CheckResult } from './types'
 import { confirmError } from '@/utils/error'
 import { reactive } from 'vue'
+import { i18n } from './i18n'
 
 const StorageKey = 'lambs_ini_aios'
 
@@ -170,7 +171,7 @@ const aiosPlain: Record<string, Aio> = {
     url: 'https://chat.deepseek.com/',
     tested: 20251217,
     pcUA: true,
-    tags: ['免费'],
+    tags: ['Free'],
     fromChina: true,
     storage: ['userToken'],
     onLoad: function () {
@@ -202,7 +203,7 @@ const aiosPlain: Record<string, Aio> = {
     key: 'yuanbao',
     name: '元宝',
     tested: 20251217,
-    tags: ['免费', '腾讯'],
+    tags: ['Free'],
     url: 'https://yuanbao.tencent.com/',
     fromChina: true,
     sendMsg: (msg) => sendMsg('.ql-editor', msg),
@@ -211,7 +212,7 @@ const aiosPlain: Record<string, Aio> = {
     key: 'tongyi',
     name: '千问',
     tested: 20251217,
-    tags: ['免费', '阿里', 'Java'],
+    tags: ['Free', 'Java'],
     extraCsp: ['https://www.tongyi.com/'],
     url: 'https://www.qianwen.com/',
     cookies: ['tongyi_sso_ticket'],
@@ -222,7 +223,7 @@ const aiosPlain: Record<string, Aio> = {
     key: 'doubao',
     name: '豆包',
     tested: 20251217,
-    tags: ['免费', '字节'],
+    tags: ['Free'],
     url: 'https://www.doubao.com/',
     fromChina: true,
     sendMsg: (msg) => sendMsg('textarea.semi-input-textarea', msg),
@@ -245,7 +246,6 @@ const aiosPlain: Record<string, Aio> = {
     key: 'chatgpt',
     name: 'ChatGPT',
     tested: 20251217,
-    tags: ['贵'],
     url: 'https://chatgpt.com/',
     fromChina: false,
     cookies: ['__Secure-next-auth.session-token'],
@@ -254,7 +254,7 @@ const aiosPlain: Record<string, Aio> = {
   claude: {
     key: 'claude',
     name: 'Claude',
-    tags: ['开发'],
+    tags: ['Dev'],
     tested: 20251217,
     cookies: ['*'],
     url: 'https://claude.ai/',
@@ -269,7 +269,7 @@ const aiosPlain: Record<string, Aio> = {
   grok: {
     key: 'grok',
     name: 'Grok',
-    tags: ['免费', 'Musk'],
+    tags: ['Free', 'Musk'],
     tested: 20251217,
     url: 'https://grok.com/',
     extraCsp: ['https://accounts.x.ai', 'https://accounts.google.com'],
@@ -279,7 +279,7 @@ const aiosPlain: Record<string, Aio> = {
       const KEY = 'XMY_TIPPED'
       if (!localStorage.getItem(KEY)) {
         alert(
-          '对于Grok，我们建议登陆访问，如果你希望匿名访问，需要在新标签页打开Grok的网站，等待加载完毕（意味着Grok自动为你生成一个匿名密钥，该密钥有效期较短（仅几个小时））之后回到小绵羊的界面刷新即可',
+          "For Grok, Login required, If you wish to access anonymously, you need to open Grok's website in a new tab, wait for it to load completely (which means Grok automatically generates an anonymous key for you, which is valid for a short period of time (only a few hours)), and then return to the interface of Little Sheep and refresh it",
         )
         localStorage.setItem(KEY, 'true')
       }
@@ -290,8 +290,8 @@ const aiosPlain: Record<string, Aio> = {
         findEl<HTMLTextAreaElement>('textarea.w-full', 5, undefined, true),
       ])
       if (!el) {
-        alert('Grok找不到输入框')
-        throw new Error('Grok找不到输入框')
+        alert("Can't found input in Grok")
+        throw new Error("Can't found input in Grok")
       }
       if (el.nodeName === 'TEXTAREA') {
         setValue(el, msg)
@@ -307,6 +307,8 @@ const aiosPlain: Record<string, Aio> = {
 /* aio helpers end */
 const storage = loadState<Record<string, Aio>>(StorageKey)
 export const aios: Record<string, Aio> = reactive(unwrap(typeCheck(storage)) || aiosPlain)
+
+
 
 /* actions */
 export async function useAio<R>(page: string, callback: (aio: Aio | null) => R): Promise<R> {
@@ -348,34 +350,34 @@ function typeCheck(aios: Record<string, Aio> | null): CheckResult<Record<string,
   }
   for (const [key, aio] of Object.entries(aios)) {
     if (key !== aio.key) {
-      return { error: aio.name + '属性`aios.key`必须等于' + key }
+      return { error: i18n.global.t('typecheck.aios-key', { aioName: aio.name, aioKey: key }) }
     }
     if (!aio.name) {
-      return { error: '属性`aios.name`必填' }
+      return { error: i18n.global.t('typecheck.aios-name') }
     }
     if (!aio.url) {
-      return { error: '属性`aios.url`必填' }
+      return { error: i18n.global.t('typecheck.aios-url') }
     }
     if (aio.cookies && !(aio.cookies instanceof Array)) {
-      return { error: '属性`aios.cookies`如果存在，必须为数组' }
+      return { error: i18n.global.t('typecheck.aios-cookies') }
     }
     if (aio.storage && !(aio.storage instanceof Array)) {
-      return { error: '属性`aios.storage`如果存在，必须为数组' }
+      return { error: i18n.global.t('typecheck.aios-storage') }
     }
     if (aio.extraCsp && !(aio.extraCsp instanceof Array)) {
-      return { error: '属性`aios.extraCsp`如果存在，必须为数组' }
+      return { error: i18n.global.t('typecheck.aios-extraCsp') }
     }
     if (![undefined, null, true, false].includes(aio.fromChina)) {
-      return { error: '属性`aios.fromChina`如果存在，必须为布尔值' }
+      return { error: i18n.global.t('typecheck.aios-fromChina') }
     }
     if (typeof aio.sendMsg !== 'function') {
-      return { error: '属性`aios.sendMsg`必须是一个函数' }
+      return { error: i18n.global.t('typecheck.aios-sendMsg') }
     }
     if (aio.onLoad && typeof aio.onLoad !== 'function') {
-      return { error: '属性`aios.onLoad``如果存在，必须是一个函数' }
+      return { error: i18n.global.t('typecheck.aios-onLoad') }
     }
     if (aio.trans && typeof aio.trans !== 'function') {
-      return { error: '属性`aios.trans``如果存在，必须是一个函数' }
+      return { error: i18n.global.t('typecheck.aios-trans') }
     }
   }
   forceMergeAios(aios)

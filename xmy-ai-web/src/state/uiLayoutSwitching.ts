@@ -2,6 +2,7 @@ import { loadState, saveState } from '@/utils/storage-persistor'
 import { reactive, ref, watch, type CSSProperties } from 'vue'
 import { unwrap, type CheckResult } from './types'
 import { confirmError, tipError } from '@/utils/error'
+import { i18n } from './i18n'
 
 const StorageKey = 'lambs_ini_ui_layout_switching'
 
@@ -154,37 +155,37 @@ function typeCheck(
     return { data: null }
   }
   if (!(layoutSwitching instanceof Array)) {
-    return { error: '属性`ini.ui.layout_switching`只能为数组' }
+    return { error: i18n.global.t('typecheck.ui-layout_switching') }
   }
   let actived = false
   const keys = new Set()
   for (const ls of layoutSwitching) {
     if (!ls.key) {
-      return { error: '属性`ini.ui.layout_switching.key`必填' }
+      return { error: i18n.global.t('typecheck.ui-layout_switching-key-required') }
     }
     if (!ls.icon) {
-      return { error: '属性`ini.ui.layout_switching.icon`必填' }
+      return { error: i18n.global.t('typecheck.ui-layout_switching-icon') }
     }
     if (keys.has(ls.key)) {
-      return { error: '属性`ini.ui.layout_switching.key`不能重复' }
+      return { error: i18n.global.t('typecheck.ui-layout_switching-key-unique') }
     }
     if (typeof ls.count !== 'number') {
-      return { error: '属性`ini.ui.layout_switching.count`只能大于0' }
+      return { error: i18n.global.t('typecheck.ui-layout_switching-count') }
     }
     if (ls.count <= 0) {
-      return { error: '属性`ini.ui.layout_switching.count`只能大于0' }
+      return { error: i18n.global.t('typecheck.ui-layout_switching-count') }
     }
     keys.add(ls.key)
     if (ls.actived) {
       if (!actived) {
         actived = true
       } else {
-        return { error: '属性`ini.ui.layout_switching`只能有一个actived的项目' }
+        return { error: i18n.global.t('typecheck.ui-layout_switching-only-one') }
       }
     }
   }
   if (!actived) {
-    return { error: '属性`ini.ui.layout_switching`必须有一个actived的项目' }
+    return { error: i18n.global.t('typecheck.ui-layout_switching-required') }
   }
   return {
     data: layoutSwitching,

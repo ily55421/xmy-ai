@@ -2,6 +2,7 @@ import { loadStateMulti, saveStateMulti } from '@/utils/storage-persistor'
 import { reactive } from 'vue'
 import { unwrap, type CheckResult } from './types'
 import { confirmError } from '@/utils/error'
+import { i18n } from './i18n'
 
 const StoragePrefix = 'lambs_ini_ui_playgrounds'
 export const getUiPlaygroundStorageKey = (key: string) => `lambs_ini_ui_playgrounds$${key}`
@@ -31,16 +32,16 @@ function typeCheck(
   }
   for (const [, playground] of Object.entries(playgrounds)) {
     if (!playground.pages || !(playground.pages instanceof Array)) {
-      return { error: '属性`ui.playgrounds.pages`必需为数组' }
+      return { error: i18n.global.t('typecheck.ui-playgrounds-pages') }
     }
     if (!playground.prefixs) {
-      return { error: '属性`ui.playgrounds.prefixs`必填' }
+      return { error: i18n.global.t('typecheck.ui-playgrounds-prefixs') }
     }
     if (!playground.questionOptions) {
-      return { error: '属性`ui.playgrounds.questionOptions`必填' }
+      return { error: i18n.global.t('typecheck.ui-playgrounds-questionOptions') }
     }
     if (typeof playground.times !== 'number') {
-      return { error: '属性`ui.playgrounds.times`必需为数字，代表提问次数' }
+      return { error: i18n.global.t('typecheck.ui-playgrounds-times') }
     }
   }
   return {

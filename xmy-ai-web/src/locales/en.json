@@ -7,6 +7,7 @@
     "sv-before-option": "Select to enable",
     "sv-after-option": "in",
     "sv-split-view": "Split View",
+    "sv-split-screen": "Split Screen",
     "sv-after-sv": " "
   },
   "ai-setting": {
@@ -27,12 +28,15 @@
     "added-successfully": "Added successfully",
     "unknown-option": "Unknown option",
     "split-view-enabled-successfully": "{aiName} has been successfully enabled in the split view.",
-    "unable-find-ai-save-first": "Unable to find Ai {aiKey}. If it hasn't been saved, please save it first."
+    "unable-find-ai-save-first": "Unable to find Ai {aiKey}. If it hasn't been saved, please save it first.",
+    "translate-engine-not-support": "The current translation engine {engine} is not supported",
+    "load-storage-error": "An error occurred while loading local configuration: {error}. Falling back to default configuration, please try clearing LocalStorage or correcting the error.",
+    "actived-playground-not-found": "The activated playground was not found",
+    "same-ai-selected": "You cannot select two identical AI at the same time"
   },
   "more-ai-modal": {
     "only-split-view-is-supported": "Only split view is supported.",
     "free-definition": "The definition of \"free\" is to provide more than 20 dialogues per day.",
-    "FNL": "F & NL",
     "FNL-refers": "\"F & NL\" refers to exemption from login, and after login, it provides more than 20 dialogues per day.",
     "view-configuration": "View configuration",
     "high-risk-tip": "Pasting here at will is a high-risk operation, and the risk is borne by yourself.",
@@ -72,6 +76,82 @@
     "plugin-tip": "Due to browser limitations, the Lambs AI Assistant requires the installation of a Chrome or Edge plugin to function properly.",
     "login-tip": "The interface of the Lambs AI Assistant does not allow for the login and logout actions of the AI agent. If you need to log in, please do so on the new tab. The assistant will automatically synchronize your account information (or follow the prompts within the assistant if necessary)."
   },
+  "tour": {
+    "install-instruct": "Installation Instructions: ",
+    "step1": "Click here to download the Chrome and Edge plugins",
+    "step2": "Extract to a specific folder",
+    "step3": "Open the Chrome extension management interface (Settings - Extensions - Manage Extensions)",
+    "step4": "Enable developer mode, as shown below",
+    "step5": "Click the \"Load unpacked\" button, and select the unzipped folder, as shown in the above image",
+    "step6": "Refresh this interface. Please note that login operations can only be performed in a separate tab (the tab of the newly created website itself)"
+  },
+  "svtour": {
+    "title": "Split View Mode Instructions",
+    "step1": "Select an AI to enable in the split view on the top right of the Lambs AI assistant (e.g., Copilot), as shown below",
+    "step2": "Right-click on the link where Copilot is located, and select \"Open Link in Split View\", as shown below",
+    "step3": "Afterwards, we can utilize the native features of Chrome to adjust the width of the split view as we please",
+    "step4": "Asking a question in the Lambs AI Assistant will automatically send the question to the AI in the split view"
+  },
+  "sstour": {
+    "title": "Split Screen Mode Instructions",
+    "step1": "Select an AI to enable in the Split Screen on the top right of the Lambs AI assistant (e.g., Copilot), as shown below",
+    "step2": "Right-click on the link where the AI name is located, and select \"Open Link in split screen window\", as shown below",
+    "step3": "Note that for Edge, we must ensure that the Small Sheep AI assistant is on the right side of the split-screen window, and you can click \"Switch left and right Tabs\" from the More button in the top right corner of the window",
+    "step4": "Afterwards, we can utilize the native features of Chrome to adjust the width of the Split Screen as we please",
+    "step5": "Asking a question in the Lambs AI Assistant will automatically send the question to the AI in the Split Screen"
+  },
+  "typecheck": {
+    "questionHistory": "The value of the attribute `ini.questionHistory` can only be an array",
+    "split_view-enabled": "The value of the attribute `ini.split_view.enabled` can only be a boolean value",
+    "translate-engine": "The attribute `ini.translate.engine` must exist",
+    "ui-theme": "The value of the property `ini.ui.theme` can only be `auto`, `light`, or `dark`",
+    "ui-layout": "The value of the attribute `ini.ui.layout` can only be `large_screen` or `small_screen`",
+    "ui-header-position": "The value of the attribute `ini.ui.header.position` can only be `top` or `left`",
+    "ui-header-size": "The value of the attribute `ini.ui.header.size` can only be `big`, `middle`, or `small`",
+    "ui-layout_switching": "The attribute `ini.ui.layout_switching` can only be an array",
+    "ui-layout_switching-key-required": "The attribute `ini.ui.layout_switching.key` is required.",
+    "ui-layout_switching-icon": "The attribute `ini.ui.layout_switching.icon` is required.",
+    "ui-layout_switching-key-unique": "The attribute `ini.ui.layout_switching.key` cannot be duplicated",
+    "ui-layout_switching-count": "The attribute `ini.ui.layout_switching.count` can only be greater than 0",
+    "ui-layout_switching-only-one": "The attribute `ini.ui.layout_switching` can only have one activated item",
+    "ui-layout_switching-required": "The attribute `ini.ui.layout_switching` must have an activated item",
+    "ui-playgrounds-pages": "The property `ui.playgrounds.pages` must be an array",
+    "ui-playgrounds-prefixs": "The attribute `ui.playgrounds.prefixs` is required.",
+    "ui-playgrounds-questionOptions": "The attribute `ui.playgrounds.questionOptions` is required.",
+    "ui-playgrounds-times": "The attribute `ui.playgrounds.times` must be a number, representing the number of times of questioning",
+    "ui-workspace": "The attribute `ini.ui.workspace` can only be an array",
+    "ui-workspace-key-required": "The attribute `ini.ui.workspace.key` is required.",
+    "ui-workspace-title": "The attribute `ini.ui.workspace.title` is required.",
+    "ui-workspace-key-unique": "The attribute `ini.ui.workspace.key` cannot be duplicated",
+    "ui-workspace-actived-unique": "The attribute `ini.ui.workspace` can only have one activated item",
+    "ui-workspace-actived-required": "The attribute `ini.ui.workspace` must have an activated item",
+    "aios-key": "The attribute `aios.key` of {aioName} must be equal to {aioKey}",
+    "aios-name": "The attribute `aios.name` is required.",
+    "aios-url": "The attribute `aios.url` is required.",
+    "aios-cookies": "If the attribute `aios.cookies` exists, it must be an array",
+    "aios-storage": "If the attribute `aios.storage` exists, it must be an array",
+    "aios-extraCsp": "If the attribute `aios.extraCsp` exists, it must be an array",
+    "aios-fromChina": "If the attribute `aios.fromChina` exists, it must be a boolean value",
+    "aios-sendMsg": "The property `aios.sendMsg` must be a function",
+    "aios-onLoad": "The property `aios.onLoad`, if it exists, must be a function",
+    "aios-trans": "The property `aios.trans`, if it exists, must be a function"
+  },
+  "tags": {
+    "rich-visuals": "Rich Visuals",
+    "limited-free": "Limited free",
+    "multi-ai": "Multi-AI group chat",
+    "medical": "Medical"
+  },
+  "ais": {
+    "YiYan": "YiYan",
+    "SenseChat": "SenseChat",
+    "ZhiNao": "ZhiNao",
+    "NaMi": "NaMi",
+    "BaiChuan": "BaiChuan",
+    "HaiLuo": "HaiLuo",
+    "TianGong": "TianGong",
+    "JieYue": "JieYue"
+  },
   "settingText": "Setting",
   "ok": "Ok",
   "cancel": "Cancel",
@@ -79,6 +159,9 @@
   "refresh": "Refresh",
   "zoom-in": "Zoom In",
   "free": "Free",
+  "FNL": "F & NL",
+  "Japan": "Japan",
+  "China": "China",
   "save": "Save",
   "add": "Add",
   "remove": "Remove"

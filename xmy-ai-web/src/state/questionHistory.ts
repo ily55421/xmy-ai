@@ -1,6 +1,7 @@
 import { loadState, saveState } from '@/utils/storage-persistor'
 import { ref } from 'vue'
 import { unwrap, type CheckResult } from './types'
+import { i18n } from './i18n'
 
 const QuestionHistoryKey = 'lambs_ini_questionHistory'
 
@@ -23,7 +24,7 @@ function typeCheck(data: QuestionHistory | null): CheckResult<QuestionHistory | 
     return { data: null }
   }
   if (!(data instanceof Array)) {
-    return { error: '属性`ini.questionHistory`的值只能为数组' }
+    return { error: i18n.global.t('typecheck.questionHistory') }
   }
   return {
     data,

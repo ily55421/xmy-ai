@@ -9,7 +9,7 @@ import { switchTranslateEngine, translate_setting } from '@/state/translateEngin
 import { logs } from '@/state/log'
 import { postRnMessage } from '@/state/mobile'
 import { mobileMode } from '@/state/env'
-import { ini_ui_language, LanguageMap, switchLanguage } from '@/state/i18n'
+import { isCn, ini_ui_language, LanguageMap, switchLanguage } from '@/state/i18n'
 import { useI18n } from 'vue-i18n'
 
 const show = defineModel<boolean>()
@@ -50,7 +50,7 @@ const headerPositionOptions = computed<Option[]>(() => [
     value: 'left',
   },
 ])
-const headerSizeOptions: Option[] = [
+const headerSizeOptions = computed<Option[]>(() => [
   {
     label: t('setting.big'),
     value: 'big',
@@ -63,7 +63,7 @@ const headerSizeOptions: Option[] = [
     label: t('setting.small'),
     value: 'small',
   },
-]
+])
 const languareOptions: Option[] = Object.entries(LanguageMap).map(([label, value]) => {
   return {
     label,
@@ -79,7 +79,7 @@ watch(
     }
     const couldTransAios = Object.values(aios).filter((it) => it.trans)
     transOptions.value = [
-      ...(ini_ui_language.value === 'zh-CN'
+      ...(isCn
         ? [
             {
               label: '百度翻译',
@@ -89,7 +89,7 @@ watch(
           ]
         : []),
       ...couldTransAios.map((it) => ({
-        label: `${it.name}`,
+        label: `${it.fromChina && isCn.value ? it.name : it.key}`,
         sup: 'Beta',
         value: it.key,
       })),
@@ -215,6 +215,11 @@ function onClose() {
             </li>
           </ul>
         </setting-box>
+      </setting-group>
+      <setting-group>
+        <setting-group-name>
+          <a target="_blank" href="https://github.com/HerbLuo/xmy-ai"> Github </a>
+        </setting-group-name>
       </setting-group>
     </setting-content>
   </CpModal>

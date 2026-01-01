@@ -5,6 +5,7 @@ import { modifyCookie } from '@/action/message'
 import { preparedPages } from './uiPlaygroundsPreparedPages'
 import { areDev, mobileMode } from './env'
 import { tipError } from '@/utils/error'
+import { i18n } from './i18n'
 
 const failbackAio: Aio = {
   key: 'baidu',
@@ -44,7 +45,7 @@ export function switchAiPage(index: number, key: string) {
   changeCurrentPlayground(async (playground) => {
     const pages = playground.pages
     if (pages.includes(key)) {
-      tipError('不可同时选择两个相同的AI')
+      tipError(i18n.global.t('messages.same-ai-selected'))
       return
     }
     const tokenKeys = await useAio(key, async (aio) => {

@@ -15,6 +15,7 @@ import { tipError } from '@/utils/error'
 import { preparedPages } from './uiPlaygroundsPreparedPages'
 import { mobileMode } from './env'
 import { ini_ui } from './ui'
+import { i18n } from './i18n'
 
 export const currentPlayground = ref<Playground>()
 watch(
@@ -164,7 +165,7 @@ export function changeCurrentPlayground(callback: (playground: Playground) => un
     ? 'Infinity'
     : `${currentWorkspace.value.key}:${currentLayoutSwitching.value.key}`
   if (!currentPlayground.value) {
-    throw tipError('找不到当前激活的playground')
+    throw tipError(i18n.global.t('messages.actived-playground-not-found'))
   }
 
   ini_ui_playgrounds[key] = currentPlayground.value

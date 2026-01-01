@@ -1,14 +1,26 @@
+<script lang="ts" setup>
+import { ini_ui_language } from '@/state/i18n'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+</script>
 <template>
   <div>
     <br />
-    安装说明：
+    {{ t('tour.install-instruct') }}
     <ol>
-      <li><a href="./xmy-ai-chrome-plugin.7z">点此下载Chrome,Edge插件</a></li>
-      <li>解压至某文件夹</li>
-      <li>打开Chrome管理扩展程序界面(设置-扩展程序-管理扩展程序)</li>
-      <li>启用开发者模式，如下图<img src="../imgs/tour_1.jpg" /></li>
-      <li>点击加载未打包的扩展程序，选择解压后的文件夹，如上图</li>
-      <li>刷新本界面，注意登陆操作只能在独立标签页（新建网站自身的标签页）操作</li>
+      <li>
+        <a href="./xmy-ai-chrome-plugin.7z">{{ t('tour.step1') }}</a>
+      </li>
+      <li>{{ t('tour.step2') }}</li>
+      <li>{{ t('tour.step3') }}</li>
+      <li>
+        {{ t('tour.step4') }}
+        <img v-if="ini_ui_language === 'zh-CN'" src="../imgs/tour_1.jpg" />
+        <img v-else src="../imgs/tour_1_en.jpg" />
+      </li>
+      <li>{{ t('tour.step5') }}</li>
+      <li>{{ t('tour.step6') }}</li>
     </ol>
   </div>
 </template>
