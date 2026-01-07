@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import VitePluginSvgSpritemap from '@spiriit/vite-plugin-svg-spritemap'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -33,7 +34,35 @@ export default defineConfig({
     }),
     vueJsx(),
     vueDevTools(),
-    VitePluginSvgSpritemap('./src/icons/*.svg')
+    VitePluginSvgSpritemap('./src/icons/*.svg'),
+    VitePWA({ 
+      registerType: 'autoUpdate', 
+      includeAssets: ['favicon.ico', 'xmy-ai-chrome-plugin.7z', 'logo_dark.png', 'logo_light.png'], 
+      manifest: { 
+        name: 'Lambs AI Assistant', 
+        short_name: 'Lambs', 
+        start_url: '/', 
+        display: 'standalone', 
+        background_color: '#ffffff', 
+        theme_color: '#004585', 
+        icons: [{ 
+          src: 'pwa-192.png', 
+          sizes: '192x192', 
+          type: 'image/png' 
+        },{ 
+          src: 'pwa-512.png', 
+          sizes: '512x512', 
+          type: 'image/png' 
+        }]
+      }, 
+      workbox: { 
+        navigateFallback: '/', 
+      },
+      devOptions: {
+        enabled: true, // 开发环境启用PWA
+        type: 'module' // 使用模块化 Service Worker
+      }
+    })
   ],
   resolve: {
     alias: {
