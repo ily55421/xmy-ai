@@ -1,6 +1,6 @@
 # Lambs AI Assistant
 
-English | 简体中文(README.md)
+English | [简体中文](README.md)
 
 The Lambs AI Assistant is a pure front-end webpage that aggregates web portals from various AI websites, allowing users to simultaneously ask questions to multiple AI agents.  
 This is the official website of Lambs AI Assistant[https://lambs-ai.com]
