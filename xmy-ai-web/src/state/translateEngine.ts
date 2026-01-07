@@ -17,7 +17,7 @@ export const BaiduTransUrl = 'https://fanyi.baidu.com/'
 const storage = loadState<TranslateSetting>(TranslateEngineStorageKey)
 export const translate_setting: TranslateSetting = reactive(
   unwrap(typeCheck(storage)) || {
-    engine: isCn.value ? BaiduTrans : "deepseek",
+    engine: isCn.value ? BaiduTrans : 'deepseek',
     url: BaiduTransUrl,
   },
 )

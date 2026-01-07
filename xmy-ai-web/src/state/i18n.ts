@@ -52,7 +52,7 @@ function detectLocale() {
   }
   for (const supportedLocale of supportedLocales) {
     if (browserLang.startsWith(supportedLocale)) {
-      return supportedLocale;
+      return supportedLocale
     }
   }
   if (browserLang.startsWith('en')) {
@@ -64,9 +64,11 @@ function detectLocale() {
 export const i18n = createI18n({
   locale: defaultLocale,
   fallbackLocale: urlLocale,
-  messages: messagesStr ? { 
-    [defaultLocale]: JSON.parse(messagesStr)
-  } : undefined,
+  messages: messagesStr
+    ? {
+        [defaultLocale]: JSON.parse(messagesStr),
+      }
+    : undefined,
 })
 
 async function loadAndSetLocale(locale: string) {

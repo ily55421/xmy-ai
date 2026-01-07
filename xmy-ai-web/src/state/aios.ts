@@ -126,8 +126,8 @@ export function checkLogin(
   ${aMode ? i18n.check_login_no_login : i18n.check_login_require}
   <ul>
     <li>${i18n.check_login_step1}</li>
-    <li>${i18n.t(i18n.check_login_step2, {sitename})}</li>
-    <li>${i18n.t(i18n.check_login_step3, {sitename})}</li>
+    <li>${i18n.t(i18n.check_login_step2, { sitename })}</li>
+    <li>${i18n.t(i18n.check_login_step3, { sitename })}</li>
     <li>${i18n.check_login_step4}</li>
   </ul>
 </h1>`
